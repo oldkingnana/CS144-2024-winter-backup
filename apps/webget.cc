@@ -1,3 +1,4 @@
+#include "address.hh"
 #include "socket.hh"
 
 #include <cstdlib>
@@ -9,8 +10,22 @@ using namespace std;
 
 void get_URL( const string& host, const string& path )
 {
-  cerr << "Function called: get_URL(" << host << ", " << path << ")\n";
-  cerr << "Warning: get_URL() has not been implemented yet.\n";
+  Address dest_addr( host, "http" );
+
+  TCPSocket tcps;
+  tcps.connect( dest_addr );
+  std::string w_buff = "GET " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\nConnection: close\r\n\r\n";
+  tcps.write( w_buff );
+
+  std::string r_buff;
+  while ( !tcps.eof() ) {
+    tcps.read( r_buff );
+    std::cout << r_buff;
+    r_buff.clear();
+  }
+
+  // cerr << "Function called: get_URL(" << host << ", " << path << ")\n";
+  // cerr << "Warning: get_URL() has not been implemented yet.\n";
 }
 
 int main( int argc, char* argv[] )
