@@ -1,0 +1,100 @@
+Start testing: Sep 03 18:59 CST
+----------------------------------------------------------
+1/39 Testing: compile with bug-checkers
+1/39 Test: compile with bug-checkers
+Command: "/usr/bin/cmake" "--build" "/home/oldking/CS144-2024-winter-backup/build" "-t" "functionality_testing" "webget"
+Directory: /home/oldking/CS144-2024-winter-backup/build
+"compile with bug-checkers" start time: Sep 03 18:59 CST
+Output:
+----------------------------------------------------------
+make[4]: warning: -j2 forced in submake: resetting jobserver mode.
+[  4%] Built target minnow_testing_debug
+[ 20%] Built target util_debug
+[ 22%] [32mBuilding CXX object tests/CMakeFiles/minnow_testing_sanitized.dir/common.cc.o[0m
+[ 28%] Built target minnow_debug
+[ 30%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/address.cc.o[0m
+[ 32%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/eventloop.cc.o[0m
+[ 34%] [32m[1mLinking CXX static library libminnow_testing_sanitized.a[0m
+[ 34%] Built target minnow_testing_sanitized
+[ 36%] [32mBuilding CXX object src/CMakeFiles/minnow_sanitized.dir/byte_stream.cc.o[0m
+[ 38%] [32mBuilding CXX object src/CMakeFiles/minnow_sanitized.dir/byte_stream_helpers.cc.o[0m
+[ 40%] [32m[1mLinking CXX static library libminnow_sanitized.a[0m
+[ 40%] Built target minnow_sanitized
+[ 42%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/file_descriptor.cc.o[0m
+[ 44%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/ipv4_header.cc.o[0m
+[ 46%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_basics.dir/byte_stream_basics.cc.o[0m
+[ 48%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/random.cc.o[0m
+[ 50%] [32m[1mLinking CXX executable byte_stream_basics[0m
+[ 50%] Built target byte_stream_basics
+[ 52%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/socket.cc.o[0m
+[ 54%] [32mBuilding CXX object util/CMakeFiles/util_sanitized.dir/tun.cc.o[0m
+[ 56%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_capacity.dir/byte_stream_capacity.cc.o[0m
+[ 58%] [32m[1mLinking CXX static library libutil_sanitized.a[0m
+[ 58%] Built target util_sanitized
+[ 60%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_one_write.dir/byte_stream_one_write.cc.o[0m
+[ 62%] [32m[1mLinking CXX executable byte_stream_capacity[0m
+[ 62%] Built target byte_stream_capacity
+[ 64%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_two_writes_sanitized.dir/byte_stream_two_writes.cc.o[0m
+[ 66%] [32m[1mLinking CXX executable byte_stream_one_write[0m
+[ 66%] Built target byte_stream_one_write
+[ 68%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_two_writes.dir/byte_stream_two_writes.cc.o[0m
+[ 70%] [32m[1mLinking CXX executable byte_stream_two_writes[0m
+[ 70%] Built target byte_stream_two_writes
+[ 72%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_many_writes_sanitized.dir/byte_stream_many_writes.cc.o[0m
+[ 74%] [32m[1mLinking CXX executable byte_stream_two_writes_sanitized[0m
+[ 74%] Built target byte_stream_two_writes_sanitized
+[ 76%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_many_writes.dir/byte_stream_many_writes.cc.o[0m
+[ 78%] [32m[1mLinking CXX executable byte_stream_many_writes[0m
+[ 80%] [32m[1mLinking CXX executable byte_stream_many_writes_sanitized[0m
+[ 80%] Built target byte_stream_many_writes
+[ 82%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_stress_test_sanitized.dir/byte_stream_stress_test.cc.o[0m
+[ 82%] Built target byte_stream_many_writes_sanitized
+[ 84%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_stress_test.dir/byte_stream_stress_test.cc.o[0m
+[ 86%] [32m[1mLinking CXX executable byte_stream_stress_test[0m
+[ 86%] Built target byte_stream_stress_test
+[ 88%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_basics_sanitized.dir/byte_stream_basics.cc.o[0m
+[ 90%] [32m[1mLinking CXX executable byte_stream_stress_test_sanitized[0m
+[ 90%] Built target byte_stream_stress_test_sanitized
+[ 92%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_capacity_sanitized.dir/byte_stream_capacity.cc.o[0m
+[ 94%] [32m[1mLinking CXX executable byte_stream_basics_sanitized[0m
+[ 94%] Built target byte_stream_basics_sanitized
+[ 96%] [32mBuilding CXX object tests/CMakeFiles/byte_stream_one_write_sanitized.dir/byte_stream_one_write.cc.o[0m
+[ 98%] [32m[1mLinking CXX executable byte_stream_capacity_sanitized[0m
+[ 98%] Built target byte_stream_capacity_sanitized
+[100%] [32m[1mLinking CXX executable byte_stream_one_write_sanitized[0m
+[100%] Built target byte_stream_one_write_sanitized
+[100%] Built target functionality_testing
+[ 13%] Built target stream_copy
+[ 66%] Built target util_debug
+[ 86%] Built target minnow_debug
+[ 93%] [32mBuilding CXX object apps/CMakeFiles/webget.dir/webget.cc.o[0m
+[100%] [32m[1mLinking CXX executable webget[0m
+[100%] Built target webget
+<end of output>
+Test time =  55.25 sec
+----------------------------------------------------------
+Test Passed.
+"compile with bug-checkers" end time: Sep 03 19:00 CST
+"compile with bug-checkers" time elapsed: 00:00:55
+----------------------------------------------------------
+
+2/39 Testing: t_webget
+2/39 Test: t_webget
+Command: "/home/oldking/CS144-2024-winter-backup/tests/webget_t.sh" "/home/oldking/CS144-2024-winter-backup/build"
+Directory: /home/oldking/CS144-2024-winter-backup/build
+"t_webget" start time: Sep 03 19:00 CST
+Output:
+----------------------------------------------------------
+HTTP/1.1 200 OK
+Content-type: text/plain
+
+7SmXqWkrLKzVBCEalbSPqBcvs11Pw263K7x4Wv3JckI
+<end of output>
+Test time =   1.04 sec
+----------------------------------------------------------
+Test Passed.
+"t_webget" end time: Sep 03 19:00 CST
+"t_webget" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Sep 03 19:00 CST

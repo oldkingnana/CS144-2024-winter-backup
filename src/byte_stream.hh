@@ -4,6 +4,8 @@
 #include <string>
 #include <string_view>
 
+#define READ_BYTES_SIZE 128
+
 class Reader;
 class Writer;
 
@@ -23,8 +25,16 @@ public:
 
 protected:
   // Please add any additional state to the ByteStream here, and not to the Writer and Reader interfaces.
-  uint64_t capacity_;
-  bool error_ {};
+  
+    // about buffer 
+	uint64_t capacity_;
+  	uint64_t bytes_pushed_ {};
+	uint64_t bytes_popped_ {};
+  	std::string buffer_;
+
+    // about state 
+	bool error_ {};
+	bool close_ {};
 };
 
 class Writer : public ByteStream
