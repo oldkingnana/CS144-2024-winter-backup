@@ -1,0 +1,20 @@
+compile 0 0
+byte_stream_basics 1 0.0486715
+byte_stream_capacity 1 0.0409444
+byte_stream_one_write 1 0.0390196
+byte_stream_two_writes 1 0.0431135
+byte_stream_many_writes 1 0.121315
+byte_stream_stress_test 1 0.0525847
+reassembler_single 1 0.0243673
+reassembler_cap 1 0.0254988
+reassembler_seq 1 0.0386661
+reassembler_dup 1 0.0700396
+reassembler_holes 1 0.0266492
+reassembler_overlapping 1 0.0291694
+reassembler_win 1 1.94138
+compile 0 0
+byte_stream_speed_test 1 0.346379
+reassembler_speed_test 1 0.602892
+compile with bug-checkers 1 13.7804
+compile with optimization 1 3.22266
+---
