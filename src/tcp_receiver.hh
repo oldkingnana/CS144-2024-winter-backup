@@ -3,12 +3,22 @@
 #include "reassembler.hh"
 #include "tcp_receiver_message.hh"
 #include "tcp_sender_message.hh"
+#include <cstdint>
+#include "wrapping_integers.hh"
 
 class TCPReceiver
 {
 public:
   // Construct with given Reassembler
-  explicit TCPReceiver( Reassembler&& reassembler ) : reassembler_( std::move( reassembler ) ) {}
+  explicit TCPReceiver( Reassembler&& reassembler ) 
+	  : reassembler_( std::move( reassembler ) ) 
+  	  , zero_point(100)
+	  , checkpoint(0)
+  	  , SYN(0)
+	  , SYN_before(0)
+	  , FIN(0)
+	  , need_FIN(0)
+	{}
 
   /*
    * The TCPReceiver receives TCPSenderMessages, inserting their payload into the Reassembler
@@ -26,5 +36,14 @@ public:
   const Writer& writer() const { return reassembler_.writer(); }
 
 private:
-  Reassembler reassembler_;
+  	Reassembler reassembler_;
+
+	Wrap32 zero_point; // ISN	
+	uint64_t checkpoint; // stream index, When actually used, it should be used after the self-decrement operation
+	uint32_t SYN;
+	uint32_t SYN_before;
+	uint32_t FIN;
+	uint32_t need_FIN;
 };
+
+
