@@ -41,7 +41,12 @@ public:
     : input_( std::move( input ) )
 	, isn_( isn )
 	, initial_RTO_ms_( initial_RTO_ms )
-  	{}
+	, CRT_(0)
+	, SeqFNum_(0)
+	, next_seq_(isn)
+	, RTO_(initial_RTO_ms)
+	, window_({})
+	{}
 
   	/* Generate an empty TCPSenderMessage */
   	TCPSenderMessage make_empty_message() const;
@@ -72,4 +77,15 @@ private:
     ByteStream input_;
     Wrap32 isn_;
     uint64_t initial_RTO_ms_;
+
+	uint64_t CRT_; // consecutive retransmission times
+	uint64_t SeqFNum_; // seq in flight number
+
+	uint64_t next_seq_;
+	uint64_t RTO_;
+
+	std::deque<std::pair<TCPSenderMessage, RetransmissionTimer>> window_;
+	
+
+
 };

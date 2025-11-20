@@ -18,27 +18,43 @@ void RetransmissionTimer::time_plus(const uint64_t& ms_since_last_tick)
 
 // =================== TCPSender ======================
 
-uint64_t TCPSender::sequence_numbers_in_flight() const // OK
+uint64_t TCPSender::sequence_numbers_in_flight() const
 {
-  	// Your code here.
-  	return {};
+  	return SeqFNum_;
 }
 
-uint64_t TCPSender::consecutive_retransmissions() const // OK
+uint64_t TCPSender::consecutive_retransmissions() const 
 {
-  	// Your code here.
-  	return {};
+  	return CRT_;
 }
 
 void TCPSender::push( const TransmitFunction& transmit )
 {
-	// Your code here.
-	(void)transmit;
+	if(input_.reader().bytes_buffered() == 0 && next_seq_ != isn_)
+		return ;
 
-TCPSenderMessage TCPSender::make_empty_message() const // OK
+	// send
+	TCPSenderMessage newTCPSdMsg = make_empty_message();
+	newTCPSdMsg.payload = input_.reader().peek().substr(0, 200);
+	input_.reader().pop(200);
+	if(next_seq_ == isn_)
+	{
+		newTCPSdMsg.SYN = true;
+		next_seq_ += 1;
+		SeqFNum_ += 1;
+	}
+	transmit(newTCPSdMsg);
+	window_.emplace_back(newTCPSdMsg, RetransmissionTimer(initial_RTO_ms_));
+
+	// update public resource
+	next_seq_ += newTCPSdMsg.payload.length();
+	SeqFNum_ += newTCPSdMsg.payload.length();
+}
+
+TCPSenderMessage TCPSender::make_empty_message() const
 {
   	TCPSenderMessage TCPSdMsg;
-  	TCPSdMsg.seqno = isn_;
+  	TCPSdMsg.seqno = next_seq_;
   	return TCPSdMsg;
 }
 
