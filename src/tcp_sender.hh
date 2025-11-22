@@ -28,9 +28,11 @@ public:
 
 	void time_plus(const uint64_t& ms_since_last_tick);
 
+	void time_reset();
+
 private:
 	uint64_t ms_time_;
-	const uint64_t RTO_;
+	const uint64_t& RTO_;
 };
 
 class TCPSender
@@ -45,7 +47,9 @@ public:
 	, SeqFNum_(0)
 	, next_seq_(isn)
 	, RTO_(initial_RTO_ms)
+	, RWSize_(0)
 	, window_({})
+	, RT(initial_RTO_ms)
 	{}
 
   	/* Generate an empty TCPSenderMessage */
@@ -72,20 +76,25 @@ public:
     // Access input stream reader, but const-only (can't read from outside)
     const Reader& reader() const { return input_.reader(); }
 
+private: 
+	void retransmit(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
+
+	//void push_(const TransmitFunction& transmit, TCPSenderMessage newTCPSdMsg);
+
 private:
     // Variables initialized in constructor
     ByteStream input_;
     Wrap32 isn_;
     uint64_t initial_RTO_ms_;
 
-	uint64_t CRT_; // consecutive retransmission times
-	uint64_t SeqFNum_; // seq in flight number
+	uint64_t CRT_; // consecutive retransmission times  最近超时次数
+	uint64_t SeqFNum_; // seq in flight number  正在传输的字节数
 
-	uint64_t next_seq_;
-	uint64_t RTO_;
+	uint64_t next_seq_; // 下一个包的seq
+	uint64_t RTO_; // 超时标准时间
 
-	std::deque<std::pair<TCPSenderMessage, RetransmissionTimer>> window_;
-	
+	uint64_t RWSize_; // 接收方窗口大小
 
-
+	std::deque<TCPSenderMessage> window_; // 窗口
+	RetransmissionTimer RT; // 重传计时器
 };
