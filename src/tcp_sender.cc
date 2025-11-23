@@ -39,7 +39,7 @@ uint64_t TCPSender::consecutive_retransmissions() const
 
 void TCPSender::push( const TransmitFunction& transmit )
 {
-	if(input_.reader().bytes_buffered() == 0 && next_seq_ != isn_)
+	if(input_.reader().bytes_buffered() == 0 && Wrap32::wrap(next_seq_, isn_) != isn_)
 		return ;
 
 	// send
@@ -63,7 +63,7 @@ void TCPSender::push( const TransmitFunction& transmit )
 	}
 
 	// 判断是否是第一个包,第一个包需要塞入SYN
-	if(next_seq_ == isn_)
+	if(Wrap32::wrap(next_seq_, isn_) == isn_)
 	{
 		newTCPSdMsg.SYN = true;
 		next_seq_ += 1;
@@ -84,7 +84,7 @@ void TCPSender::push( const TransmitFunction& transmit )
 TCPSenderMessage TCPSender::make_empty_message() const
 {
   	TCPSenderMessage TCPSdMsg;
-  	TCPSdMsg.seqno = next_seq_;
+  	TCPSdMsg.seqno = Wrap32::wrap(next_seq_, isn_);
   	return TCPSdMsg;
 }
 
@@ -94,20 +94,22 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
 		return ;
 
 	// 如果已经有内容被接收了
-	if(msg.ackno > next_seq_ - SeqFNum_)
+	if((*msg.ackno).unwrap(isn_, last_ackno_) > next_seq_ - SeqFNum_)
 	{
 		// 重置公共资源
 		CRT_ = 0;
 		RTO_ = initial_RTO_ms_;
-		SeqFNum_ -= msg.ackno - window_[0].seqno; 
+		SeqFNum_ -= (*msg.ackno).unwrap(isn_, last_ackno_) - window_[0].seqno.unwrap(isn_, last_ackno_); 
 		RWSize_ = static_cast<uint64_t>(msg.window_size);
 
 		// 重置时间
 		RT.time_reset();
 
 		// 将已经接收的msg从窗口移除
-		for(auto it = window_.begin() ; it.seqno + it.payload.length() - 1 < msg.ackno; )
+		for(auto it = window_.begin() ; it != window_.end() && it->seqno.unwrap(isn_, last_ackno_) + it->payload.length() < (*msg.ackno).unwrap(isn_, last_ackno_) + static_cast<uint32_t>(1); )
 			it = window_.erase(it);
+
+		last_ackno_ = (*msg.ackno).unwrap(isn_, last_ackno_);
 	}
 }
 
@@ -132,6 +134,9 @@ void TCPSender::retransmit(const TransmitFunction& transmit, TCPSenderMessage TC
 	CRT_++;
 	RTO_ *= 2;
 }
+
+
+
 
 
 
