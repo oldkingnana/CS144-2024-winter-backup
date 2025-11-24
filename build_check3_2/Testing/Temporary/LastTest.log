@@ -1,165 +1,151 @@
-Start testing: Nov 23 19:25 CST
+Start testing: Nov 24 17:50 CST
 ----------------------------------------------------------
 1/39 Testing: compile with bug-checkers
 1/39 Test: compile with bug-checkers
 Command: "/usr/bin/cmake" "--build" "/home/oldking/CS144-2024-winter-backup/build_check3_2" "-t" "functionality_testing" "webget"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"compile with bug-checkers" start time: Nov 23 19:25 CST
+"compile with bug-checkers" start time: Nov 24 17:50 CST
 Output:
 ----------------------------------------------------------
 make[4]: warning: -j2 forced in submake: resetting jobserver mode.
-[  6%] Built target minnow_testing_debug
-[  5%] Built target util_debug
-[  6%] [32mBuilding CXX object src/CMakeFiles/minnow_debug.dir/tcp_sender.cc.o[0m
+[  1%] Built target minnow_testing_debug
+[  6%] Built target util_debug
 [  8%] Built target minnow_testing_sanitized
+[  8%] [32mBuilding CXX object src/CMakeFiles/minnow_debug.dir/tcp_sender.cc.o[0m
 [ 13%] Built target util_sanitized
 [ 15%] [32mBuilding CXX object src/CMakeFiles/minnow_sanitized.dir/tcp_sender.cc.o[0m
 [ 15%] [32m[1mLinking CXX static library libminnow_debug.a[0m
 [ 18%] Built target minnow_debug
-[ 19%] [32mBuilding CXX object tests/CMakeFiles/send_extra.dir/send_extra.cc.o[0m
-[ 20%] [32m[1mLinking CXX static library libminnow_sanitized.a[0m
-[ 23%] Built target minnow_sanitized
-[ 24%] [32m[1mLinking CXX executable byte_stream_basics[0m
-[ 24%] Built target byte_stream_basics
-[ 25%] [32m[1mLinking CXX executable byte_stream_capacity_sanitized[0m
-[ 25%] Built target byte_stream_capacity_sanitized
-[ 26%] [32m[1mLinking CXX executable byte_stream_capacity[0m
-[ 26%] Built target byte_stream_capacity
-[ 27%] [32m[1mLinking CXX executable byte_stream_one_write_sanitized[0m
-[ 27%] Built target byte_stream_one_write_sanitized
-[ 29%] [32m[1mLinking CXX executable byte_stream_one_write[0m
-[ 29%] Built target byte_stream_one_write
-[ 29%] [32m[1mLinking CXX executable byte_stream_two_writes_sanitized[0m
-[ 30%] Built target byte_stream_two_writes_sanitized
-[ 30%] [32m[1mLinking CXX executable byte_stream_two_writes[0m
-[ 31%] Built target byte_stream_two_writes
-[ 32%] [32m[1mLinking CXX executable byte_stream_many_writes_sanitized[0m
-[ 32%] Built target byte_stream_many_writes_sanitized
-[ 33%] [32m[1mLinking CXX executable byte_stream_many_writes[0m
-[ 33%] Built target byte_stream_many_writes
-[ 34%] [32m[1mLinking CXX executable byte_stream_stress_test_sanitized[0m
-[ 34%] Built target byte_stream_stress_test_sanitized
-[ 36%] [32m[1mLinking CXX executable byte_stream_stress_test[0m
-[ 36%] Built target byte_stream_stress_test
-[ 36%] [32m[1mLinking CXX executable send_extra[0m
-[ 36%] [32m[1mLinking CXX executable reassembler_single_sanitized[0m
-[ 36%] Built target send_extra
-[ 36%] [32m[1mLinking CXX executable reassembler_single[0m
-[ 37%] Built target reassembler_single_sanitized
-[ 38%] [32m[1mLinking CXX executable reassembler_cap_sanitized[0m
-[ 39%] Built target reassembler_single
-[ 40%] [32m[1mLinking CXX executable reassembler_cap[0m
-[ 40%] Built target reassembler_cap_sanitized
-[ 40%] [32m[1mLinking CXX executable reassembler_seq_sanitized[0m
-[ 40%] Built target reassembler_cap
-[ 40%] [32m[1mLinking CXX executable reassembler_seq[0m
-[ 41%] Built target reassembler_seq_sanitized
-[ 43%] [32m[1mLinking CXX executable reassembler_dup_sanitized[0m
-[ 44%] Built target reassembler_seq
-[ 45%] [32m[1mLinking CXX executable reassembler_dup[0m
-[ 45%] Built target reassembler_dup_sanitized
-[ 46%] [32m[1mLinking CXX executable reassembler_holes_sanitized[0m
-[ 46%] Built target reassembler_dup
-[ 47%] [32m[1mLinking CXX executable reassembler_holes[0m
-[ 47%] Built target reassembler_holes_sanitized
-[ 47%] [32m[1mLinking CXX executable reassembler_overlapping_sanitized[0m
-[ 47%] Built target reassembler_holes
-[ 47%] [32m[1mLinking CXX executable reassembler_overlapping[0m
-[ 48%] Built target reassembler_overlapping_sanitized
-[ 48%] [32m[1mLinking CXX executable reassembler_win_sanitized[0m
-[ 50%] Built target reassembler_overlapping
-[ 50%] [32m[1mLinking CXX executable reassembler_win[0m
-[ 51%] Built target reassembler_win_sanitized
-[ 52%] Built target reassembler_win
-[ 52%] [32m[1mLinking CXX executable wrapping_integers_cmp_sanitized[0m
-[ 52%] [32m[1mLinking CXX executable wrapping_integers_cmp[0m
-[ 53%] Built target wrapping_integers_cmp_sanitized
-[ 54%] Built target wrapping_integers_cmp
-[ 55%] [32m[1mLinking CXX executable wrapping_integers_wrap_sanitized[0m
-[ 55%] [32m[1mLinking CXX executable wrapping_integers_wrap[0m
-[ 56%] Built target wrapping_integers_wrap
-[ 58%] Built target wrapping_integers_wrap_sanitized
-[ 58%] [32m[1mLinking CXX executable wrapping_integers_unwrap_sanitized[0m
-[ 58%] [32m[1mLinking CXX executable wrapping_integers_unwrap[0m
-[ 59%] Built target wrapping_integers_unwrap
-[ 59%] [32m[1mLinking CXX executable wrapping_integers_roundtrip_sanitized[0m
-[ 60%] Built target wrapping_integers_unwrap_sanitized
-[ 60%] [32m[1mLinking CXX executable wrapping_integers_roundtrip[0m
-[ 61%] Built target wrapping_integers_roundtrip_sanitized
-[ 61%] [32m[1mLinking CXX executable wrapping_integers_extra_sanitized[0m
-[ 62%] Built target wrapping_integers_roundtrip
-[ 62%] [32m[1mLinking CXX executable wrapping_integers_extra[0m
-[ 63%] Built target wrapping_integers_extra_sanitized
-[ 65%] [32m[1mLinking CXX executable recv_connect_sanitized[0m
-[ 66%] Built target wrapping_integers_extra
-[ 67%] [32m[1mLinking CXX executable recv_connect[0m
-[ 67%] Built target recv_connect_sanitized
-[ 68%] [32m[1mLinking CXX executable recv_transmit_sanitized[0m
-[ 68%] Built target recv_connect
-[ 69%] [32m[1mLinking CXX executable recv_transmit[0m
-[ 69%] Built target recv_transmit_sanitized
-[ 69%] [32m[1mLinking CXX executable recv_window_sanitized[0m
-[ 69%] Built target recv_transmit
-[ 69%] [32m[1mLinking CXX executable recv_window[0m
-[ 70%] Built target recv_window_sanitized
-[ 72%] [32m[1mLinking CXX executable recv_reorder_sanitized[0m
-[ 73%] Built target recv_window
-[ 74%] [32m[1mLinking CXX executable recv_reorder[0m
-[ 74%] Built target recv_reorder_sanitized
-[ 74%] Built target recv_reorder
-[ 75%] [32m[1mLinking CXX executable recv_reorder_more_sanitized[0m
-[ 76%] [32m[1mLinking CXX executable recv_reorder_more[0m
-[ 76%] Built target recv_reorder_more
-[ 76%] Built target recv_reorder_more_sanitized
-[ 77%] [32m[1mLinking CXX executable recv_close_sanitized[0m
-[ 77%] [32m[1mLinking CXX executable recv_close[0m
-[ 79%] Built target recv_close
-[ 80%] [32m[1mLinking CXX executable recv_special_sanitized[0m
-[ 81%] Built target recv_close_sanitized
-[ 82%] [32m[1mLinking CXX executable recv_special[0m
-[ 82%] Built target recv_special_sanitized
-[ 83%] [32mBuilding CXX object tests/CMakeFiles/send_connect_sanitized.dir/send_connect.cc.o[0m
-[ 83%] Built target recv_special
-[ 84%] [32mBuilding CXX object tests/CMakeFiles/send_connect.dir/send_connect.cc.o[0m
-[ 84%] [32m[1mLinking CXX executable send_connect[0m
-[ 84%] Built target send_connect
-[ 84%] [32mBuilding CXX object tests/CMakeFiles/send_transmit_sanitized.dir/send_transmit.cc.o[0m
-[ 84%] [32m[1mLinking CXX executable send_connect_sanitized[0m
-[ 84%] Built target send_connect_sanitized
-[ 84%] [32mBuilding CXX object tests/CMakeFiles/send_transmit.dir/send_transmit.cc.o[0m
-[ 86%] [32m[1mLinking CXX executable send_transmit[0m
-[ 86%] Built target send_transmit
-[ 86%] [32mBuilding CXX object tests/CMakeFiles/send_retx_sanitized.dir/send_retx.cc.o[0m
-[ 87%] [32m[1mLinking CXX executable send_transmit_sanitized[0m
-[ 87%] Built target send_transmit_sanitized
-[ 88%] [32mBuilding CXX object tests/CMakeFiles/send_retx.dir/send_retx.cc.o[0m
-[ 89%] [32m[1mLinking CXX executable send_retx[0m
-[ 89%] Built target send_retx
-[ 89%] [32mBuilding CXX object tests/CMakeFiles/send_window_sanitized.dir/send_window.cc.o[0m
-[ 90%] [32m[1mLinking CXX executable send_retx_sanitized[0m
-[ 90%] Built target send_retx_sanitized
-[ 90%] [32mBuilding CXX object tests/CMakeFiles/send_window.dir/send_window.cc.o[0m
-[ 91%] [32m[1mLinking CXX executable send_window[0m
-[ 93%] [32m[1mLinking CXX executable send_window_sanitized[0m
-[ 93%] Built target send_window
-[ 94%] [32mBuilding CXX object tests/CMakeFiles/send_ack_sanitized.dir/send_ack.cc.o[0m
-[ 94%] Built target send_window_sanitized
-[ 95%] [32mBuilding CXX object tests/CMakeFiles/send_ack.dir/send_ack.cc.o[0m
-[ 95%] [32m[1mLinking CXX executable send_ack[0m
-[ 95%] Built target send_ack
-[ 96%] [32mBuilding CXX object tests/CMakeFiles/send_close_sanitized.dir/send_close.cc.o[0m
-[ 96%] [32m[1mLinking CXX executable send_ack_sanitized[0m
-[ 96%] Built target send_ack_sanitized
-[ 97%] [32mBuilding CXX object tests/CMakeFiles/send_close.dir/send_close.cc.o[0m
-[ 97%] [32m[1mLinking CXX executable send_close[0m
-[ 97%] Built target send_close
-[ 98%] [32mBuilding CXX object tests/CMakeFiles/send_extra_sanitized.dir/send_extra.cc.o[0m
-[ 98%] [32m[1mLinking CXX executable send_close_sanitized[0m
-[ 98%] Built target send_close_sanitized
-[100%] [32m[1mLinking CXX executable byte_stream_basics_sanitized[0m
-[100%] Built target byte_stream_basics_sanitized
-[100%] [32m[1mLinking CXX executable send_extra_sanitized[0m
-[100%] Built target send_extra_sanitized
+[ 18%] [32m[1mLinking CXX executable send_extra[0m
+[ 19%] Built target send_extra
+[ 20%] [32m[1mLinking CXX executable byte_stream_basics[0m
+[ 20%] Built target byte_stream_basics
+[ 22%] [32m[1mLinking CXX executable byte_stream_capacity[0m
+[ 23%] [32m[1mLinking CXX static library libminnow_sanitized.a[0m
+[ 23%] Built target byte_stream_capacity
+[ 24%] [32m[1mLinking CXX executable byte_stream_one_write[0m
+[ 26%] Built target minnow_sanitized
+[ 26%] [32m[1mLinking CXX executable byte_stream_two_writes[0m
+[ 26%] Built target byte_stream_one_write
+[ 27%] [32m[1mLinking CXX executable byte_stream_many_writes_sanitized[0m
+[ 29%] Built target byte_stream_two_writes
+[ 30%] [32m[1mLinking CXX executable byte_stream_many_writes[0m
+[ 30%] Built target byte_stream_many_writes_sanitized
+[ 31%] [32m[1mLinking CXX executable byte_stream_stress_test_sanitized[0m
+[ 31%] Built target byte_stream_many_writes
+[ 32%] [32m[1mLinking CXX executable byte_stream_stress_test[0m
+[ 32%] Built target byte_stream_stress_test_sanitized
+[ 32%] Built target byte_stream_stress_test
+[ 32%] [32m[1mLinking CXX executable reassembler_single_sanitized[0m
+[ 32%] [32m[1mLinking CXX executable reassembler_single[0m
+[ 33%] Built target reassembler_single
+[ 34%] [32m[1mLinking CXX executable reassembler_cap_sanitized[0m
+[ 36%] Built target reassembler_single_sanitized
+[ 37%] [32m[1mLinking CXX executable reassembler_cap[0m
+[ 37%] Built target reassembler_cap_sanitized
+[ 37%] Built target reassembler_cap
+[ 37%] [32m[1mLinking CXX executable reassembler_seq_sanitized[0m
+[ 37%] [32m[1mLinking CXX executable reassembler_seq[0m
+[ 38%] Built target reassembler_seq
+[ 39%] [32m[1mLinking CXX executable reassembler_dup_sanitized[0m
+[ 40%] Built target reassembler_seq_sanitized
+[ 41%] [32m[1mLinking CXX executable reassembler_dup[0m
+[ 41%] Built target reassembler_dup_sanitized
+[ 43%] [32m[1mLinking CXX executable reassembler_holes_sanitized[0m
+[ 43%] Built target reassembler_dup
+[ 44%] [32m[1mLinking CXX executable reassembler_holes[0m
+[ 44%] Built target reassembler_holes_sanitized
+[ 44%] [32m[1mLinking CXX executable reassembler_overlapping_sanitized[0m
+[ 44%] Built target reassembler_holes
+[ 44%] [32m[1mLinking CXX executable reassembler_overlapping[0m
+[ 45%] Built target reassembler_overlapping_sanitized
+[ 46%] Built target reassembler_overlapping
+[ 46%] [32m[1mLinking CXX executable reassembler_win_sanitized[0m
+[ 46%] [32m[1mLinking CXX executable reassembler_win[0m
+[ 47%] Built target reassembler_win
+[ 48%] Built target reassembler_win_sanitized
+[ 48%] [32m[1mLinking CXX executable wrapping_integers_cmp_sanitized[0m
+[ 48%] [32m[1mLinking CXX executable wrapping_integers_cmp[0m
+[ 50%] Built target wrapping_integers_cmp_sanitized
+[ 51%] Built target wrapping_integers_cmp
+[ 52%] [32m[1mLinking CXX executable wrapping_integers_wrap_sanitized[0m
+[ 52%] [32m[1mLinking CXX executable wrapping_integers_wrap[0m
+[ 53%] Built target wrapping_integers_wrap_sanitized
+[ 54%] Built target wrapping_integers_wrap
+[ 54%] [32m[1mLinking CXX executable wrapping_integers_unwrap_sanitized[0m
+[ 54%] [32m[1mLinking CXX executable wrapping_integers_unwrap[0m
+[ 55%] Built target wrapping_integers_unwrap
+[ 56%] Built target wrapping_integers_unwrap_sanitized
+[ 56%] [32m[1mLinking CXX executable wrapping_integers_roundtrip_sanitized[0m
+[ 56%] [32m[1mLinking CXX executable wrapping_integers_roundtrip[0m
+[ 58%] Built target wrapping_integers_roundtrip
+[ 59%] Built target wrapping_integers_roundtrip_sanitized
+[ 59%] [32m[1mLinking CXX executable wrapping_integers_extra_sanitized[0m
+[ 59%] [32m[1mLinking CXX executable wrapping_integers_extra[0m
+[ 60%] Built target wrapping_integers_extra_sanitized
+[ 61%] Built target wrapping_integers_extra
+[ 62%] [32m[1mLinking CXX executable recv_connect_sanitized[0m
+[ 63%] [32m[1mLinking CXX executable recv_connect[0m
+[ 63%] Built target recv_connect
+[ 63%] Built target recv_connect_sanitized
+[ 65%] [32m[1mLinking CXX executable recv_transmit_sanitized[0m
+[ 66%] [32m[1mLinking CXX executable recv_transmit[0m
+[ 66%] Built target recv_transmit
+[ 66%] Built target recv_transmit_sanitized
+[ 66%] [32m[1mLinking CXX executable recv_window_sanitized[0m
+[ 66%] [32m[1mLinking CXX executable recv_window[0m
+[ 67%] Built target recv_window
+[ 68%] [32m[1mLinking CXX executable recv_reorder_sanitized[0m
+[ 69%] Built target recv_window_sanitized
+[ 70%] [32m[1mLinking CXX executable recv_reorder[0m
+[ 70%] Built target recv_reorder_sanitized
+[ 70%] Built target recv_reorder
+[ 72%] [32m[1mLinking CXX executable recv_reorder_more_sanitized[0m
+[ 73%] [32m[1mLinking CXX executable recv_reorder_more[0m
+[ 73%] Built target recv_reorder_more
+[ 73%] Built target recv_reorder_more_sanitized
+[ 74%] [32m[1mLinking CXX executable recv_close_sanitized[0m
+[ 74%] [32m[1mLinking CXX executable recv_close[0m
+[ 75%] Built target recv_close
+[ 76%] Built target recv_close_sanitized
+[ 77%] [32m[1mLinking CXX executable recv_special_sanitized[0m
+[ 79%] [32m[1mLinking CXX executable recv_special[0m
+[ 79%] Built target recv_special
+[ 79%] [32m[1mLinking CXX executable send_connect_sanitized[0m
+[ 79%] Built target recv_special_sanitized
+[ 79%] [32m[1mLinking CXX executable send_connect[0m
+[ 80%] Built target send_connect_sanitized
+[ 81%] Built target send_connect
+[ 82%] [32m[1mLinking CXX executable send_transmit_sanitized[0m
+[ 83%] [32m[1mLinking CXX executable send_transmit[0m
+[ 83%] Built target send_transmit
+[ 83%] Built target send_transmit_sanitized
+[ 84%] [32m[1mLinking CXX executable send_retx_sanitized[0m
+[ 86%] [32m[1mLinking CXX executable send_retx[0m
+[ 86%] Built target send_retx_sanitized
+[ 87%] Built target send_retx
+[ 88%] [32m[1mLinking CXX executable send_window_sanitized[0m
+[ 89%] [32m[1mLinking CXX executable send_window[0m
+[ 89%] Built target send_window
+[ 89%] Built target send_window_sanitized
+[ 89%] [32m[1mLinking CXX executable send_ack_sanitized[0m
+[ 89%] [32m[1mLinking CXX executable send_ack[0m
+[ 90%] Built target send_ack_sanitized
+[ 91%] Built target send_ack
+[ 91%] [32m[1mLinking CXX executable send_close_sanitized[0m
+[ 91%] [32m[1mLinking CXX executable send_close[0m
+[ 93%] Built target send_close
+[ 94%] Built target send_close_sanitized
+[ 94%] [32m[1mLinking CXX executable send_extra_sanitized[0m
+[ 95%] [32m[1mLinking CXX executable byte_stream_basics_sanitized[0m
+[ 95%] Built target byte_stream_basics_sanitized
+[ 96%] Built target send_extra_sanitized
+[ 97%] [32m[1mLinking CXX executable byte_stream_capacity_sanitized[0m
+[ 98%] [32m[1mLinking CXX executable byte_stream_one_write_sanitized[0m
+[ 98%] Built target byte_stream_capacity_sanitized
+[ 98%] Built target byte_stream_one_write_sanitized
+[ 98%] [32m[1mLinking CXX executable byte_stream_two_writes_sanitized[0m
+[100%] Built target byte_stream_two_writes_sanitized
 [100%] Built target functionality_testing
 [ 10%] Built target stream_copy
 [ 60%] Built target util_debug
@@ -167,25 +153,25 @@ make[4]: warning: -j2 forced in submake: resetting jobserver mode.
 [ 90%] [32m[1mLinking CXX executable webget[0m
 [100%] Built target webget
 <end of output>
-Test time =  95.89 sec
+Test time =   7.50 sec
 ----------------------------------------------------------
 Test Passed.
-"compile with bug-checkers" end time: Nov 23 19:26 CST
-"compile with bug-checkers" time elapsed: 00:01:35
+"compile with bug-checkers" end time: Nov 24 17:51 CST
+"compile with bug-checkers" time elapsed: 00:00:07
 ----------------------------------------------------------
 
 3/39 Testing: byte_stream_basics
 3/39 Test: byte_stream_basics
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_basics_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_basics" start time: Nov 23 19:26 CST
+"byte_stream_basics" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_basics" end time: Nov 23 19:26 CST
+"byte_stream_basics" end time: Nov 24 17:51 CST
 "byte_stream_basics" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -193,14 +179,14 @@ Test Passed.
 4/39 Test: byte_stream_capacity
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_capacity_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_capacity" start time: Nov 23 19:26 CST
+"byte_stream_capacity" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_capacity" end time: Nov 23 19:26 CST
+"byte_stream_capacity" end time: Nov 24 17:51 CST
 "byte_stream_capacity" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -208,14 +194,14 @@ Test Passed.
 5/39 Test: byte_stream_one_write
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_one_write_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_one_write" start time: Nov 23 19:26 CST
+"byte_stream_one_write" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_one_write" end time: Nov 23 19:26 CST
+"byte_stream_one_write" end time: Nov 24 17:51 CST
 "byte_stream_one_write" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -223,14 +209,14 @@ Test Passed.
 6/39 Test: byte_stream_two_writes
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_two_writes_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_two_writes" start time: Nov 23 19:26 CST
+"byte_stream_two_writes" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_two_writes" end time: Nov 23 19:26 CST
+"byte_stream_two_writes" end time: Nov 24 17:51 CST
 "byte_stream_two_writes" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -238,14 +224,14 @@ Test Passed.
 7/39 Test: byte_stream_many_writes
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_many_writes_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_many_writes" start time: Nov 23 19:26 CST
+"byte_stream_many_writes" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.13 sec
+Test time =   0.07 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_many_writes" end time: Nov 23 19:26 CST
+"byte_stream_many_writes" end time: Nov 24 17:51 CST
 "byte_stream_many_writes" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -253,14 +239,14 @@ Test Passed.
 8/39 Test: byte_stream_stress_test
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/byte_stream_stress_test_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"byte_stream_stress_test" start time: Nov 23 19:26 CST
+"byte_stream_stress_test" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.06 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
 Test Passed.
-"byte_stream_stress_test" end time: Nov 23 19:26 CST
+"byte_stream_stress_test" end time: Nov 24 17:51 CST
 "byte_stream_stress_test" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -268,7 +254,7 @@ Test Passed.
 9/39 Test: reassembler_single
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_single_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_single" start time: Nov 23 19:26 CST
+"reassembler_single" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -279,10 +265,10 @@ Output:
 
 
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_single" end time: Nov 23 19:26 CST
+"reassembler_single" end time: Nov 24 17:51 CST
 "reassembler_single" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -290,7 +276,7 @@ Test Passed.
 10/39 Test: reassembler_cap
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_cap_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_cap" start time: Nov 23 19:26 CST
+"reassembler_cap" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -315,10 +301,10 @@ Output:
 
 
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_cap" end time: Nov 23 19:26 CST
+"reassembler_cap" end time: Nov 24 17:51 CST
 "reassembler_cap" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -326,7 +312,7 @@ Test Passed.
 11/39 Test: reassembler_seq
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_seq_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_seq" start time: Nov 23 19:26 CST
+"reassembler_seq" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -536,10 +522,10 @@ Output:
 
 
 <end of output>
-Test time =   0.09 sec
+Test time =   0.03 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_seq" end time: Nov 23 19:26 CST
+"reassembler_seq" end time: Nov 24 17:51 CST
 "reassembler_seq" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -547,7 +533,7 @@ Test Passed.
 12/39 Test: reassembler_dup
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_dup_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_dup" start time: Nov 23 19:26 CST
+"reassembler_dup" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -645,11 +631,34 @@ Output:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <end of output>
-Test time =   0.10 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_dup" end time: Nov 23 19:26 CST
+"reassembler_dup" end time: Nov 24 17:51 CST
 "reassembler_dup" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -657,7 +666,7 @@ Test Passed.
 13/39 Test: reassembler_holes
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_holes_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_holes" start time: Nov 23 19:26 CST
+"reassembler_holes" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -669,10 +678,10 @@ Output:
 
 
 <end of output>
-Test time =   0.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_holes" end time: Nov 23 19:26 CST
+"reassembler_holes" end time: Nov 24 17:51 CST
 "reassembler_holes" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -680,7 +689,7 @@ Test Passed.
 14/39 Test: reassembler_overlapping
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_overlapping_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_overlapping" start time: Nov 23 19:26 CST
+"reassembler_overlapping" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -703,10 +712,10 @@ Output:
 
 
 <end of output>
-Test time =   0.05 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_overlapping" end time: Nov 23 19:26 CST
+"reassembler_overlapping" end time: Nov 24 17:51 CST
 "reassembler_overlapping" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -714,7 +723,7 @@ Test Passed.
 15/39 Test: reassembler_win
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/reassembler_win_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"reassembler_win" start time: Nov 23 19:26 CST
+"reassembler_win" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -3169,63 +3178,26 @@ Output:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <end of output>
-Test time =   2.19 sec
+Test time =   1.48 sec
 ----------------------------------------------------------
 Test Passed.
-"reassembler_win" end time: Nov 23 19:26 CST
-"reassembler_win" time elapsed: 00:00:02
+"reassembler_win" end time: Nov 24 17:51 CST
+"reassembler_win" time elapsed: 00:00:01
 ----------------------------------------------------------
 
 16/39 Testing: wrapping_integers_cmp
 16/39 Test: wrapping_integers_cmp
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/wrapping_integers_cmp_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"wrapping_integers_cmp" start time: Nov 23 19:26 CST
+"wrapping_integers_cmp" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"wrapping_integers_cmp" end time: Nov 23 19:26 CST
+"wrapping_integers_cmp" end time: Nov 24 17:51 CST
 "wrapping_integers_cmp" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -3233,14 +3205,14 @@ Test Passed.
 17/39 Test: wrapping_integers_wrap
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/wrapping_integers_wrap_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"wrapping_integers_wrap" start time: Nov 23 19:26 CST
+"wrapping_integers_wrap" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"wrapping_integers_wrap" end time: Nov 23 19:26 CST
+"wrapping_integers_wrap" end time: Nov 24 17:51 CST
 "wrapping_integers_wrap" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -3248,14 +3220,14 @@ Test Passed.
 18/39 Test: wrapping_integers_unwrap
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/wrapping_integers_unwrap_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"wrapping_integers_unwrap" start time: Nov 23 19:26 CST
+"wrapping_integers_unwrap" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"wrapping_integers_unwrap" end time: Nov 23 19:26 CST
+"wrapping_integers_unwrap" end time: Nov 24 17:51 CST
 "wrapping_integers_unwrap" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -3263,29 +3235,29 @@ Test Passed.
 19/39 Test: wrapping_integers_roundtrip
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/wrapping_integers_roundtrip_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"wrapping_integers_roundtrip" start time: Nov 23 19:26 CST
+"wrapping_integers_roundtrip" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   3.17 sec
+Test time =   2.07 sec
 ----------------------------------------------------------
 Test Passed.
-"wrapping_integers_roundtrip" end time: Nov 23 19:26 CST
-"wrapping_integers_roundtrip" time elapsed: 00:00:03
+"wrapping_integers_roundtrip" end time: Nov 24 17:51 CST
+"wrapping_integers_roundtrip" time elapsed: 00:00:02
 ----------------------------------------------------------
 
 20/39 Testing: wrapping_integers_extra
 20/39 Test: wrapping_integers_extra
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/wrapping_integers_extra_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"wrapping_integers_extra" start time: Nov 23 19:26 CST
+"wrapping_integers_extra" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.70 sec
+Test time =   0.43 sec
 ----------------------------------------------------------
 Test Passed.
-"wrapping_integers_extra" end time: Nov 23 19:26 CST
+"wrapping_integers_extra" end time: Nov 24 17:51 CST
 "wrapping_integers_extra" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -3293,17 +3265,17 @@ Test Passed.
 21/39 Test: recv_connect
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_connect_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_connect" start time: Nov 23 19:26 CST
+"recv_connect" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
 
 
 <end of output>
-Test time =   0.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_connect" end time: Nov 23 19:26 CST
+"recv_connect" end time: Nov 24 17:51 CST
 "recv_connect" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -3311,7 +3283,7 @@ Test Passed.
 22/39 Test: recv_transmit
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_transmit_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_transmit" start time: Nov 23 19:26 CST
+"recv_transmit" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -13425,10 +13397,10 @@ Output:
 
 
 <end of output>
-Test time =   0.97 sec
+Test time =   0.59 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_transmit" end time: Nov 23 19:26 CST
+"recv_transmit" end time: Nov 24 17:51 CST
 "recv_transmit" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -13436,7 +13408,7 @@ Test Passed.
 23/39 Test: recv_window
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_window_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_window" start time: Nov 23 19:26 CST
+"recv_window" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -13460,10 +13432,10 @@ Output:
 
 
 <end of output>
-Test time =   0.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_window" end time: Nov 23 19:26 CST
+"recv_window" end time: Nov 24 17:51 CST
 "recv_window" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -13471,7 +13443,7 @@ Test Passed.
 24/39 Test: recv_reorder
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_reorder_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_reorder" start time: Nov 23 19:26 CST
+"recv_reorder" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -13484,10 +13456,10 @@ Output:
 
 
 <end of output>
-Test time =   0.05 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_reorder" end time: Nov 23 19:26 CST
+"recv_reorder" end time: Nov 24 17:51 CST
 "recv_reorder" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -13495,7 +13467,7 @@ Test Passed.
 25/39 Test: recv_reorder_more
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_reorder_more_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_reorder_more" start time: Nov 23 19:26 CST
+"recv_reorder_more" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -14030,19 +14002,43 @@ Output:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <end of output>
-Test time =   3.39 sec
+Test time =   2.41 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_reorder_more" end time: Nov 23 19:26 CST
-"recv_reorder_more" time elapsed: 00:00:03
+"recv_reorder_more" end time: Nov 24 17:51 CST
+"recv_reorder_more" time elapsed: 00:00:02
 ----------------------------------------------------------
 
 26/39 Testing: recv_close
 26/39 Test: recv_close
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_close_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_close" start time: Nov 23 19:26 CST
+"recv_close" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -14050,10 +14046,10 @@ Output:
 
 
 <end of output>
-Test time =   0.04 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_close" end time: Nov 23 19:26 CST
+"recv_close" end time: Nov 24 17:51 CST
 "recv_close" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -14061,7 +14057,7 @@ Test Passed.
 27/39 Test: recv_special
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/recv_special_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"recv_special" start time: Nov 23 19:26 CST
+"recv_special" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
 
@@ -14095,10 +14091,10 @@ Output:
 
 
 <end of output>
-Test time =   0.06 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"recv_special" end time: Nov 23 19:26 CST
+"recv_special" end time: Nov 24 17:51 CST
 "recv_special" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -14106,72 +14102,85 @@ Test Passed.
 28/39 Test: send_connect
 Command: "/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/send_connect_sanitized"
 Directory: /home/oldking/CS144-2024-winter-backup/build_check3_2
-"send_connect" start time: Nov 23 19:26 CST
+"send_connect" start time: Nov 24 17:51 CST
 Output:
 ----------------------------------------------------------
-=================================================================
-==3640060==ERROR: AddressSanitizer: stack-use-after-return on address 0x7e6e3d40c1d8 at pc 0x5d13b9df8075 bp 0x7fff6d144010 sp 0x7fff6d144000
-READ of size 8 at 0x7e6e3d40c1d8 thread T0
-    #0 0x5d13b9df8074 in RetransmissionTimer::is_timeout() const /home/oldking/CS144-2024-winter-backup/src/tcp_sender.cc:10
-    #1 0x5d13b9dfb9ad in TCPSender::tick(unsigned long, std::function<void (TCPSenderMessage const&)> const&) /home/oldking/CS144-2024-winter-backup/src/tcp_sender.cc:125
-    #2 0x5d13b9dba63c in Tick::execute(SenderAndOutput&) const (/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/send_connect_sanitized+0xcb63c) (BuildId: a8cfb72e9776456919b87dd8343f2164338e3c4c)
-    #3 0x5d13b9dd2c47 in TestHarness<SenderAndOutput>::execute(TestStep<SenderAndOutput> const&) (/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/send_connect_sanitized+0xe3c47) (BuildId: a8cfb72e9776456919b87dd8343f2164338e3c4c)
-    #4 0x5d13b9dad736 in main /home/oldking/CS144-2024-winter-backup/tests/send_connect.cc:78
-    #5 0x7e6e3f22a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
-    #6 0x7e6e3f22a28a in __libc_start_main_impl ../csu/libc-start.c:360
-    #7 0x5d13b9da8b84 in _start (/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/send_connect_sanitized+0xb9b84) (BuildId: a8cfb72e9776456919b87dd8343f2164338e3c4c)
 
-Address 0x7e6e3d40c1d8 is located in stack of thread T0 at offset 472 in frame
-    #0 0x5d13b9dc43bb in TCPSenderTestHarness::TCPSenderTestHarness(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, TCPConfig) (/home/oldking/CS144-2024-winter-backup/build_check3_2/tests/send_connect_sanitized+0xd53bb) (BuildId: a8cfb72e9776456919b87dd8343f2164338e3c4c)
+ seq_len=1
+ SYN=1
+ payload=0
+ FIN=0
+ next_seq=1
+ SeqFNum=1
+ RWSize=0
+ reader_finished=0
+ bytes_buffered=0
+ payload is 
 
-  This frame has 6 object(s):
-    [48, 80) 'config' (line 359)
-    [112, 144) '<unknown>'
-    [176, 208) '<unknown>'
-    [240, 272) '<unknown>'
-    [304, 368) '<unknown>'
-    [400, 704) '<unknown>' <== Memory access at offset 472 is inside this variable
-HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
-      (longjmp and C++ exceptions *are* supported)
-SUMMARY: AddressSanitizer: stack-use-after-return /home/oldking/CS144-2024-winter-backup/src/tcp_sender.cc:10 in RetransmissionTimer::is_timeout() const
-Shadow bytes around the buggy address:
-  0x7e6e3d40bf00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x7e6e3d40bf80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x7e6e3d40c000: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-  0x7e6e3d40c080: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-  0x7e6e3d40c100: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-=>0x7e6e3d40c180: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5[f5]f5 f5 f5 f5
-  0x7e6e3d40c200: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-  0x7e6e3d40c280: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-  0x7e6e3d40c300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x7e6e3d40c380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x7e6e3d40c400: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
-Shadow byte legend (one shadow byte represents 8 application bytes):
-  Addressable:           00
-  Partially addressable: 01 02 03 04 05 06 07 
-  Heap left redzone:       fa
-  Freed heap region:       fd
-  Stack left redzone:      f1
-  Stack mid redzone:       f2
-  Stack right redzone:     f3
-  Stack after return:      f5
-  Stack use after scope:   f8
-  Global redzone:          f9
-  Global init order:       f6
-  Poisoned by user:        f7
-  Container overflow:      fc
-  Array cookie:            ac
-  Intra object redzone:    bb
-  ASan internal:           fe
-  Left alloca redzone:     ca
-  Right alloca redzone:    cb
-==3640060==ABORTING
+send!
+
+ seq_len=1
+ SYN=1
+ payload=0
+ FIN=0
+ next_seq=1
+ SeqFNum=1
+ RWSize=0
+ reader_finished=0
+ bytes_buffered=0
+ payload is 
+
+send!
+
+receive!
+ next_seq=1
+ SeqFNum=1
+ RWSize=0
+ reader_finished=0
+ bytes_buffered=0
+ msg.ackno=1
+ window_[0].seqno=0 window_[0].seq_len=1
+
+receive finish!
+ next_seq=1
+ SeqFNum=1
+ RWSize=137
+ reader_finished=0
+ bytes_buffered=0
+
+ seq_len=0
+ SYN=0
+ payload=0
+ FIN=0
+ next_seq=1
+ SeqFNum=1
+ RWSize=137
+ reader_finished=0
+ bytes_buffered=0
+ payload is 
+
+send none
+
+The test [1;39m"[m[1;39mSYN acked test[m[1;39m"[m failed after these steps:
+
+  0.	[1;39mInitialized SenderAndOutput with initial_RTO_ms=1000[m
+  1.	[1;34mAction: push TCPSender[m
+  2.	[1;32mExpectation: message sent with seqno=Wrap32<1242650794> +SYN (no payload) (no FIN) (no RST)[m
+  3.	[1;32mExpectation: make_empty_message().seqno = Wrap32<1242650795>[m
+  4.	[1;32mExpectation: sequence_numbers_in_flight = 1[m
+  5.	[1;34mAction: receive(ack=Some(Wrap32<1242650795>), win=137), then push stream to TCPSender[m
+  6.	[1;32mExpectation: nothing to send[m
+[1;31m  ***** Unsuccessful Expectation: sequence_numbers_in_flight = 0 *****
+
+[m[1;31mExpectationViolation[m: [1;39mThe object should have had sequence_numbers_in_flight = 0, but instead it was 1.[m
+
+The test "SYN acked test" failed.
 <end of output>
-Test time =   0.25 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Failed.
-"send_connect" end time: Nov 23 19:26 CST
+"send_connect" end time: Nov 24 17:51 CST
 "send_connect" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Nov 23 19:26 CST
+End testing: Nov 24 17:51 CST

@@ -13,6 +13,7 @@
 
 #include <deque>
 
+#include <iostream>
 
 class TCPSender
 {
@@ -25,14 +26,14 @@ public:
 	, CRT_(0)
 	, SeqFNum_(0)
 	, next_seq_(isn.unwrap(isn, 0))
-	, RTO_(initial_RTO_ms)
+	// , RTO_(initial_RTO_ms)
 	, RWSize_(0)
 	, last_ackno_(0)
 	, window_({})
-	, RT(initial_RTO_ms_)
+	, RT_(initial_RTO_ms_)
 	{}
 
-	friend bool RetransmissionTimer::is_timeout();
+	// friend bool RetransmissionTimer::is_timeout();
 
   	/* Generate an empty TCPSenderMessage */
   	TCPSenderMessage make_empty_message() const;
