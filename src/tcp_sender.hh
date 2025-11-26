@@ -29,9 +29,13 @@ public:
 	// , RTO_(initial_RTO_ms)
 	, RWSize_(0)
 	, last_ackno_(0)
+	, is_FINed_(false)
+	, is_SYNed_(false)
 	, window_({})
 	, RT_(initial_RTO_ms_)
-	{}
+	{
+		//std::cout << "TCPSender init!" << std::endl;
+	}
 
 	// friend bool RetransmissionTimer::is_timeout();
 
@@ -63,6 +67,11 @@ private:
 	void retransmit(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
 
 	//void push_(const TransmitFunction& transmit, TCPSenderMessage newTCPSdMsg);
+  	void push_single_msg_( const TransmitFunction& transmit );
+
+	void push_SYN_(const TransmitFunction& transmit );
+
+	void push_FIN_(const TransmitFunction& transmit );
 
 	class RetransmissionTimer
 	{
@@ -85,6 +94,10 @@ private:
 
 		void RTO_multi();
 
+		uint64_t get_time();
+
+		uint64_t get_RTO();
+
 	private:
 		uint64_t ms_time_;
 		uint64_t RTO_; // 超时标准时间
@@ -102,6 +115,9 @@ private:
 	uint64_t next_seq_; // 下一个包的seq
 	uint64_t RWSize_; // 接收方窗口大小
 	uint64_t last_ackno_; // 最近一次接收的ACK的绝对位置
+
+	bool is_FINed_;
+	bool is_SYNed_;
 
 	std::deque<TCPSenderMessage> window_; // 窗口
 	RetransmissionTimer RT_; // 重传计时器

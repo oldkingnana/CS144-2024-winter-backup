@@ -4,7 +4,7 @@
 #include <string>
 #include <string_view>
 
-#define READ_BYTES_SIZE 128
+#define READ_BYTES_SIZE 1000
 
 class Reader;
 class Writer;
