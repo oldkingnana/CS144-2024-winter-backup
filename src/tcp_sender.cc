@@ -1,5 +1,6 @@
 #include "tcp_sender.hh"
 #include "tcp_config.hh"
+#include <cstdio>
 #include <ostream>
 
 using namespace std;
@@ -58,14 +59,14 @@ void TCPSender::push( const TransmitFunction& transmit )
 {
 	// send SYN
 	if(!is_SYNed_)
-		push_SYN_(transmit);
+		push_single_msg_(transmit);
 
-	while(RWSize_ - SeqFNum_ > 0 && !(input_.reader().is_finished()) && input_.reader().bytes_buffered())
+	while(static_cast<int64_t>(RWSize_ - SeqFNum_) > 0 && !is_FINed_ && input_.reader().bytes_buffered() > 0)
 		push_single_msg_(transmit);
 
 	// send FIN
 	if(!is_FINed_ && RWSize_ - SeqFNum_ > 0 && input_.reader().is_finished() && input_.reader().bytes_buffered() == 0)
-		push_FIN_(transmit);
+		push_single_msg_(transmit);
 }
 
 void TCPSender::push_SYN_(const TransmitFunction& transmit)
@@ -102,27 +103,35 @@ void TCPSender::push_single_msg_( const TransmitFunction& transmit )
 {
 	TCPSenderMessage newTCPSdMsg = make_empty_message();
 
-//	std::cout << std::endl;
-//	std::cout << "push begin!" << std::endl;
-//	std::cerr
-//	  << " seq_len=" << newTCPSdMsg.sequence_length() << std::endl
-//	  << " SYN=" << newTCPSdMsg.SYN << std::endl
-//      << " payload=" << newTCPSdMsg.payload.size() << std::endl
-//      << " FIN=" << newTCPSdMsg.FIN << std::endl
-//      << " next_seq=" << next_seq_ << std::endl
-//	  << " SeqFNum=" << SeqFNum_ << std::endl
-//      << " RWSize=" << RWSize_ << std::endl
-//      << " reader_finished=" << input_.reader().is_finished() << std::endl
-//      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl;
-//	std::cerr << " payload is " << newTCPSdMsg.payload << std::endl;
-	
+	std::cout << std::endl;
+	std::cout << "push begin!" << std::endl;
+	std::cerr
+	  << " seq_len=" << newTCPSdMsg.sequence_length() << std::endl
+	  << " SYN=" << newTCPSdMsg.SYN << std::endl
+      << " payload=" << newTCPSdMsg.payload.size() << std::endl
+      << " FIN=" << newTCPSdMsg.FIN << std::endl
+      << " next_seq=" << next_seq_ << std::endl
+	  << " SeqFNum=" << SeqFNum_ << std::endl
+      << " RWSize=" << RWSize_ << std::endl
+      << " reader_finished=" << input_.reader().is_finished() << std::endl
+      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl;
+	std::cerr << " payload is " << newTCPSdMsg.payload << std::endl;
+
+	// std::cout << "flag" << std::endl;
+
+	if(!is_SYNed_)
+	{
+		newTCPSdMsg.SYN = true;
+		is_SYNed_ = true;
+	}
+
 	// 向msg塞入足量的数据
-	if(0 < RWSize_ - SeqFNum_ && RWSize_ - SeqFNum_ <= 1000) 
+	if(0 < RWSize_ - SeqFNum_ - newTCPSdMsg.sequence_length() && RWSize_ - SeqFNum_ -newTCPSdMsg.sequence_length() <= 1000) 
 	{
 		newTCPSdMsg.payload = input_.reader().peek().substr(0, RWSize_ - SeqFNum_);
 		input_.reader().pop(RWSize_ - SeqFNum_);
 	}
-	else if(1000 < RWSize_ - SeqFNum_) 
+	else if(1000 < RWSize_ - SeqFNum_ - newTCPSdMsg.sequence_length()) 
 	{
 		newTCPSdMsg.payload = input_.reader().peek().substr(0, 1000);
 		input_.reader().pop(1000);
@@ -141,22 +150,25 @@ void TCPSender::push_single_msg_( const TransmitFunction& transmit )
 	if(newTCPSdMsg.sequence_length() == 0)
 		return ;
 
-//	std::cout << std::endl;
-//	std::cout << "push finish!" << std::endl;
-//	std::cerr
-//	  << " seq_len=" << newTCPSdMsg.sequence_length() << std::endl
-//	  << " SYN=" << newTCPSdMsg.SYN << std::endl
-//      << " payload=" << newTCPSdMsg.payload.size() << std::endl
-//      << " FIN=" << newTCPSdMsg.FIN << std::endl
-//      << " next_seq=" << next_seq_ << std::endl
-//	  << " SeqFNum=" << SeqFNum_ << std::endl
-//      << " RWSize=" << RWSize_ << std::endl
-//      << " reader_finished=" << input_.reader().is_finished() << std::endl
-//      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl;
-//	std::cerr << " payload is " << newTCPSdMsg.payload << std::endl;
+	std::cout << std::endl;
+	std::cout << "push finish!" << std::endl;
+	std::cerr
+	  << " seq_len=" << newTCPSdMsg.sequence_length() << std::endl
+	  << " SYN=" << newTCPSdMsg.SYN << std::endl
+      << " payload=" << newTCPSdMsg.payload.size() << std::endl
+      << " FIN=" << newTCPSdMsg.FIN << std::endl
+      << " next_seq=" << next_seq_ << std::endl
+	  << " SeqFNum=" << SeqFNum_ << std::endl
+      << " RWSize=" << RWSize_ << std::endl
+      << " reader_finished=" << input_.reader().is_finished() << std::endl
+      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl;
+	std::cerr << " payload is " << newTCPSdMsg.payload << std::endl;
+
+	std::flush(std::cout);
+	std::flush(std::cerr);
 
 	// 传输
-//	std::cout << std::endl << "send!" << std::endl;
+	std::cout << std::endl << "send!" << std::endl;
 	transmit(newTCPSdMsg);
 	// 在窗口塞入传输的msg
 	window_.push_back(newTCPSdMsg);
@@ -181,31 +193,59 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
       << " reader_finished=" << input_.reader().is_finished() << std::endl
       << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
 	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
-	  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
 	  << " first msg time=" << RT_.get_time() << std::endl
 	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
 
-	RWSize_ = static_cast<uint64_t>(msg.window_size);
+	if(window_.size() != 0)
+	{
+		std::cerr
+		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
+		  << " window_[0]=" << window_[0].payload << std::endl;
+	}
 
+
+	  RWSize_ = static_cast<uint64_t>(msg.window_size);
+		
+	uint64_t ackno_u64 = (*msg.ackno).unwrap(isn_, last_ackno_);
+	
 	// ACK合法性判断
 	// 超了--无效
-	if((*msg.ackno).unwrap(isn_, last_ackno_) > next_seq_)
+	if(ackno_u64 > next_seq_)
 	{}
 	// 如果已经有内容被接收了
-	else if((*msg.ackno).unwrap(isn_, last_ackno_) > next_seq_ - SeqFNum_)
+	else if(ackno_u64 > next_seq_ - SeqFNum_)
 	{
+		uint64_t first_seq = window_[0].seqno.unwrap(isn_, last_ackno_);
+
+		// 将已经接收的msg从窗口移除
+		for(auto it = window_.begin() ; it != window_.end() ; )
+		{
+			std::cout << "flag" << std::endl;
+			std::flush(cout);
+
+			uint64_t seqno_u64 = it->seqno.unwrap(isn_, last_ackno_);
+
+			if(seqno_u64 + it->sequence_length() <= ackno_u64)
+				it = window_.erase(it);
+			else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
+			{
+				it->payload = it->payload.substr(ackno_u64 - seqno_u64);
+				if(it->sequence_length() == 0)
+					it = window_.erase(it);
+				break;
+			}
+			else 
+				break;
+		}
+
 		// 重置公共资源
 		CRT_ = 0;
 		RT_.RTO_reset(initial_RTO_ms_);
-		SeqFNum_ -= (*msg.ackno).unwrap(isn_, last_ackno_) - window_[0].seqno.unwrap(isn_, last_ackno_); 
+		SeqFNum_ -= ackno_u64 - first_seq; 
 
 		// 重置时间
 		RT_.time_reset();
-
-		// 将已经接收的msg从窗口移除
-		for(auto it = window_.begin() ; it != window_.end() && it->seqno.unwrap(isn_, last_ackno_) + it->sequence_length() < (*msg.ackno).unwrap(isn_, last_ackno_) + static_cast<uint32_t>(1); )
-			it = window_.erase(it);
-
+		
 		last_ackno_ = (*msg.ackno).unwrap(isn_, last_ackno_);
 	}
 	// 太少--无效
@@ -220,8 +260,16 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
       << " RWSize=" << RWSize_ << std::endl
       << " reader_finished=" << input_.reader().is_finished() << std::endl
       << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
+	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
 	  << " first msg time=" << RT_.get_time() << std::endl
 	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
+	
+	if(window_.size() != 0)
+	{
+		std::cerr
+		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
+		  << " window_[0]=" << window_[0].payload << std::endl;
+	}
 }
 
 void TCPSender::tick( uint64_t ms_since_last_tick, const TransmitFunction& transmit )
