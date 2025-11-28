@@ -69,35 +69,35 @@ void TCPSender::push( const TransmitFunction& transmit )
 		push_single_msg_(transmit);
 }
 
-void TCPSender::push_SYN_(const TransmitFunction& transmit)
-{
-	TCPSenderMessage newTCPSdMsg = make_empty_message();
-
-	// 更新公共资源
-	newTCPSdMsg.SYN = true;
-	next_seq_ += 1;
-	SeqFNum_ += 1;
-	is_SYNed_ = true;
-
-	transmit(newTCPSdMsg);
-	// 在窗口塞入传输的msg
-	window_.push_back(newTCPSdMsg);
-}
-
-void TCPSender::push_FIN_(const TransmitFunction& transmit)
-{
-	TCPSenderMessage newTCPSdMsg = make_empty_message();
-
-	// 更新公共资源
-	newTCPSdMsg.FIN = true;
-	next_seq_ += 1;
-	SeqFNum_ += 1;
-	is_FINed_ = true;
-
-	transmit(newTCPSdMsg);
-	// 在窗口塞入传输的msg
-	window_.push_back(newTCPSdMsg);
-}
+//void TCPSender::push_SYN_(const TransmitFunction& transmit)
+//{
+//	TCPSenderMessage newTCPSdMsg = make_empty_message();
+//
+//	// 更新公共资源
+//	newTCPSdMsg.SYN = true;
+//	next_seq_ += 1;
+//	SeqFNum_ += 1;
+//	is_SYNed_ = true;
+//
+//	transmit(newTCPSdMsg);
+//	// 在窗口塞入传输的msg
+//	window_.push_back(newTCPSdMsg);
+//}
+//
+//void TCPSender::push_FIN_(const TransmitFunction& transmit)
+//{
+//	TCPSenderMessage newTCPSdMsg = make_empty_message();
+//
+//	// 更新公共资源
+//	newTCPSdMsg.FIN = true;
+//	next_seq_ += 1;
+//	SeqFNum_ += 1;
+//	is_FINed_ = true;
+//
+//	transmit(newTCPSdMsg);
+//	// 在窗口塞入传输的msg
+//	window_.push_back(newTCPSdMsg);
+//}
 
 void TCPSender::push_single_msg_( const TransmitFunction& transmit )
 {
@@ -220,18 +220,28 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
 		// 将已经接收的msg从窗口移除
 		for(auto it = window_.begin() ; it != window_.end() ; )
 		{
-			std::cout << "flag" << std::endl;
-			std::flush(cout);
-
 			uint64_t seqno_u64 = it->seqno.unwrap(isn_, last_ackno_);
 
 			if(seqno_u64 + it->sequence_length() <= ackno_u64)
 				it = window_.erase(it);
 			else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
 			{
-				it->payload = it->payload.substr(ackno_u64 - seqno_u64);
-				if(it->sequence_length() == 0)
-					it = window_.erase(it);
+				// 鲁棒性优化
+				uint64_t need_del_len = ackno_u64 - seqno_u64;
+
+				if(it->FIN == true)
+				{
+					it->FIN = false;
+					need_del_len -= 1;
+					it->seqno = it->seqno + 1;
+				}
+				
+				if(need_del_len > 0)
+				{
+					it->payload = it->payload.substr(need_del_len);
+					it->seqno = it->seqno + need_del_len;	
+				}
+
 				break;
 			}
 			else 

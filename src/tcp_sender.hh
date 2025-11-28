@@ -20,12 +20,6 @@ class TCPSender
 public:
   	/* Construct TCP sender with given default Retransmission Timeout and possible ISN */
   	TCPSender( ByteStream&& input, Wrap32 isn, uint64_t initial_RTO_ms )
-	if(window_.size() != 0)
-	{
-		std::cerr
-		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
-		  << " window_[0]=" << window_[0].payload << std::endl;
-	}
     : input_( std::move( input ) )
 	, isn_( isn )
 	, initial_RTO_ms_( initial_RTO_ms )
@@ -37,6 +31,7 @@ public:
 	, last_ackno_(0)
 	, is_FINed_(false)
 	, is_SYNed_(false)
+	, zero_window_probe_(false)
 	, window_({})
 	, RT_(initial_RTO_ms_)
 	{
@@ -124,6 +119,8 @@ private:
 
 	bool is_FINed_;
 	bool is_SYNed_;
+
+	bool zero_window_probe_;
 
 	std::deque<TCPSenderMessage> window_; // 窗口
 	RetransmissionTimer RT_; // 重传计时器
