@@ -32,13 +32,16 @@ public:
 	, is_FINed_(false)
 	, is_SYNed_(false)
 	, zero_window_probe_(false)
+	, is_zero_window_probeing_(false)
+	, zero_window_probe_msg_({}) // 窗口
 	, window_({})
 	, RT_(initial_RTO_ms_)
 	{
 		//std::cout << "TCPSender init!" << std::endl;
 	}
 
-	// friend bool RetransmissionTimer::is_timeout();
+
+	// ***** public function *****
 
   	/* Generate an empty TCPSenderMessage */
   	TCPSenderMessage make_empty_message() const;
@@ -58,21 +61,39 @@ public:
   	// Accessors
   	uint64_t sequence_numbers_in_flight() const;  // How many sequence numbers are outstanding?
   	uint64_t consecutive_retransmissions() const; // How many consecutive *re*transmissions have happened?
-    Writer& writer() { return input_.writer(); }
+    
+	Writer& writer() { return input_.writer(); }
     const Writer& writer() const { return input_.writer(); }
   
     // Access input stream reader, but const-only (can't read from outside)
     const Reader& reader() const { return input_.reader(); }
 
 private: 
-	void retransmit(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
 
-	//void push_(const TransmitFunction& transmit, TCPSenderMessage newTCPSdMsg);
-  	void push_single_msg_( const TransmitFunction& transmit );
 
-	void push_SYN_(const TransmitFunction& transmit );
+	// ***** simple mode *****
+	
+	void push_simple_mode_( const TransmitFunction& transmit );
+	
+	void receive_simple_mode_(const TCPReceiverMessage& msg);
 
-	void push_FIN_(const TransmitFunction& transmit );
+	void tick_simple_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit);
+
+	void retransmit_simple_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
+
+
+	// ***** zero window probe mode *****
+	
+	void push_ZWB_mode_(const TransmitFunction& transmit );
+	
+	void receive_ZWB_mode_(const TCPReceiverMessage& msg);
+	
+	void tick_ZWB_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit);
+
+	void retransmit_ZWB_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
+
+
+	// ***** inner class *****
 
 	class RetransmissionTimer
 	{
@@ -121,6 +142,8 @@ private:
 	bool is_SYNed_;
 
 	bool zero_window_probe_;
+	bool is_zero_window_probeing_;
+	std::deque<TCPSenderMessage> zero_window_probe_msg_; 
 
 	std::deque<TCPSenderMessage> window_; // 窗口
 	RetransmissionTimer RT_; // 重传计时器
