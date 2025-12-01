@@ -31,6 +31,7 @@ public:
 	, last_ackno_(0)
 	, is_FINed_(false)
 	, is_SYNed_(false)
+	, should_RST_(false)
 	, zero_window_probe_(false)
 	, is_zero_window_probeing_(false)
 	, zero_window_probe_msg_({}) // 窗口
@@ -84,13 +85,13 @@ private:
 
 	// ***** zero window probe mode *****
 	
-	void push_ZWB_mode_(const TransmitFunction& transmit );
+	void push_ZWP_mode_(const TransmitFunction& transmit );
 	
-	void receive_ZWB_mode_(const TCPReceiverMessage& msg);
+	void receive_ZWP_mode_(const TCPReceiverMessage& msg);
 	
-	void tick_ZWB_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit);
+	void tick_ZWP_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit);
 
-	void retransmit_ZWB_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
+	void retransmit_ZWP_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg);
 
 
 	// ***** inner class *****
@@ -140,6 +141,7 @@ private:
 
 	bool is_FINed_;
 	bool is_SYNed_;
+	bool should_RST_;
 
 	bool zero_window_probe_;
 	bool is_zero_window_probeing_;

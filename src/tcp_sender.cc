@@ -15,60 +15,64 @@ TCPSenderMessage TCPSender::make_empty_message() const
 {
   	TCPSenderMessage TCPSdMsg;
   	TCPSdMsg.seqno = Wrap32::wrap(next_seq_, isn_);
+	if(should_RST_)
+		TCPSdMsg.RST = true;
+	if(input_.reader().has_error())
+		TCPSdMsg.RST = true;
   	return TCPSdMsg;
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
 {
-	std::cout << std::endl;
-	std::cerr << "receive!" << std::endl;
-	std::cerr
-      << " next_seq=" << next_seq_ << std::endl
-	  << " SeqFNum=" << SeqFNum_ << std::endl
-      << " RWSize=" << RWSize_ << std::endl
-      << " reader_finished=" << input_.reader().is_finished() << std::endl
-      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
-	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
-	  << " first msg time=" << RT_.get_time() << std::endl
-	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
+//	std::cout << std::endl;
+//	std::cerr << "receive!" << std::endl;
+//	std::cerr
+//      << " next_seq=" << next_seq_ << std::endl
+//	  << " SeqFNum=" << SeqFNum_ << std::endl
+//      << " RWSize=" << RWSize_ << std::endl
+//      << " reader_finished=" << input_.reader().is_finished() << std::endl
+//      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
+//	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
+//	  << " first msg time=" << RT_.get_time() << std::endl
+//	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
 
-	if(window_.size() != 0)
-	{
-		std::cerr
-		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
-		  << " window_[0]=" << window_[0].payload << std::endl
-		  << " window_[0].FIN=" << window_[0].FIN << std::endl;
-	}
+//	if(window_.size() != 0)
+//	{
+//		std::cerr
+//		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
+//		  << " window_[0]=" << window_[0].payload << std::endl
+//		  << " window_[0].FIN=" << window_[0].FIN << std::endl;
+//	}
 
 	// 进入单字节探测模式
 	if(msg.window_size == 0)
 	{
-		receive_ZWB_mode_(msg);
+		receive_ZWP_mode_(msg);
 	}
 	// 进入正常模式
 	else if(msg.window_size != 0)
 	{
 		receive_simple_mode_(msg);
 	}
-	std::cout << std::endl;
-	std::cerr << "receive finish!" << std::endl;
-	std::cerr
-      << " next_seq=" << next_seq_ << std::endl
-	  << " SeqFNum=" << SeqFNum_ << std::endl
-      << " RWSize=" << RWSize_ << std::endl
-      << " reader_finished=" << input_.reader().is_finished() << std::endl
-      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
-	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
-	  << " first msg time=" << RT_.get_time() << std::endl
-	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
-	
-	if(window_.size() != 0)
-	{
-		std::cerr
-		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
-		  << " window_[0]=" << window_[0].payload << std::endl
-		  << " window_[0].FIN=" << window_[0].FIN << std::endl;
-	}
+//	std::cout << std::endl;
+//	std::cerr << "receive finish!" << std::endl;
+//	std::cerr
+//      << " next_seq=" << next_seq_ << std::endl
+//	  << " SeqFNum=" << SeqFNum_ << std::endl
+//      << " RWSize=" << RWSize_ << std::endl
+//      << " reader_finished=" << input_.reader().is_finished() << std::endl
+//      << " bytes_buffered=" << input_.reader().bytes_buffered() << std::endl
+//	  << " msg.ackno=" << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl
+//	  << " first msg time=" << RT_.get_time() << std::endl
+//	  << " first msg RTO=" << RT_.get_RTO() << std::endl;
+//	
+//	if(window_.size() != 0)
+//	{
+//		std::cerr
+//		  << " window_[0].seqno=" << window_[0].seqno.unwrap(isn_, last_ackno_) << std::endl
+//		  << " window_[0]=" << window_[0].payload << std::endl
+//		  << " window_[0].FIN=" << window_[0].FIN << std::endl;
+//	}
 }
 
 
@@ -76,7 +80,7 @@ void TCPSender::push( const TransmitFunction& transmit )
 {
 	if(zero_window_probe_ && !is_zero_window_probeing_)
 	{
-		push_ZWB_mode_(transmit);
+		push_ZWP_mode_(transmit);
 	}
 	else if(!zero_window_probe_)
 	{
@@ -115,7 +119,7 @@ void TCPSender::tick( uint64_t ms_since_last_tick, const TransmitFunction& trans
 
 	// 单字节探测模式
 	if(zero_window_probe_)
-		tick_ZWB_mode_(ms_since_last_tick, transmit);
+		tick_ZWP_mode_(ms_since_last_tick, transmit);
 	// 普通模式
 	else 
 		tick_simple_mode_(ms_since_last_tick, transmit);	
@@ -147,6 +151,8 @@ uint64_t TCPSender::consecutive_retransmissions() const
 void TCPSender::push_simple_mode_( const TransmitFunction& transmit )
 {
 	TCPSenderMessage newTCPSdMsg = make_empty_message();
+
+//	std::cout << "push_simple_mode_ !" << std::endl;
 
 //	std::cout << std::endl;
 //	std::cout << "push begin!" << std::endl;
@@ -215,18 +221,38 @@ void TCPSender::push_simple_mode_( const TransmitFunction& transmit )
 //
 	// 传输
 //	std::cout << std::endl << "send!" << std::endl;
+
+//	std::cout << std::endl;
+//	std::cout 
+//		<< "msg.SYN = " << newTCPSdMsg.SYN << std::endl
+//		<< "msg.payload = " << newTCPSdMsg.payload << std::endl
+//		<< "msg.FIN = " << newTCPSdMsg.FIN << std::endl 
+//		<< "msg.RST = " << newTCPSdMsg.RST << std::endl;
+
 	transmit(newTCPSdMsg);
 	// 在窗口塞入传输的msg
 	window_.push_back(newTCPSdMsg);
+
+	if(newTCPSdMsg.RST)
+		should_RST_ = false;
 }
 
 
 void TCPSender::receive_simple_mode_(const TCPReceiverMessage& msg)
 {
+//	std::cout << std::endl;
+//	std::cout << "receive_simple_mode_ !" << std::endl;
+//	std::cout << "msg.ackno = " << (*msg.ackno).unwrap(isn_, last_ackno_) << std::endl;
+//	std::cout << "msg.window_size = " << msg.window_size << std::endl;
+//	std::cout << "msg.RST = " << msg.RST << std::endl;
+
+	if(msg.RST)
+		input_.reader().set_error();
+
 	// 如果上一个包是单字节探测包
 	if(zero_window_probe_ == true)
 	{
-		std::cerr << std::endl << "quit zero_window_probe !" << std::endl;
+//		std::cerr << std::endl << "quit zero_window_probe !" << std::endl;
 		RWSize_ = static_cast<uint64_t>(msg.window_size);
 		SeqFNum_ -= 1;
 		zero_window_probe_ = false;
@@ -234,13 +260,14 @@ void TCPSender::receive_simple_mode_(const TCPReceiverMessage& msg)
 		// 重置时间
 		RT_.time_reset();
 		zero_window_probe_msg_.pop_back();
+		last_ackno_ = (*msg.ackno).unwrap(isn_, last_ackno_);
 	}
 	// 如果上一个包不是单字节探测包
 	else
 	{
 		RWSize_ = static_cast<uint64_t>(msg.window_size);
 		uint64_t ackno_u64 = (*msg.ackno).unwrap(isn_, last_ackno_);
-		
+
 		// ACK合法性判断
 		// 超了--无效
 		if(ackno_u64 > next_seq_)
@@ -248,8 +275,6 @@ void TCPSender::receive_simple_mode_(const TCPReceiverMessage& msg)
 		// 如果已经有内容被接收了
 		else if(ackno_u64 > next_seq_ - SeqFNum_)
 		{
-			uint64_t first_seq = window_[0].seqno.unwrap(isn_, last_ackno_);
-	
 			// 将已经接收的msg从窗口移除
 			for(auto it = window_.begin() ; it != window_.end() ; )
 			{
@@ -257,33 +282,33 @@ void TCPSender::receive_simple_mode_(const TCPReceiverMessage& msg)
 	
 				if(seqno_u64 + it->sequence_length() <= ackno_u64)
 					it = window_.erase(it);
-				else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
-				{
-					// 鲁棒性优化
-					uint64_t need_del_len = ackno_u64 - seqno_u64;
+			//	else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
+			//	{
+			//		// 鲁棒性优化
+			//		uint64_t need_del_len = ackno_u64 - seqno_u64;
 	
-					if(need_del_len > 0)
-					{
-						it->payload = it->payload.substr(need_del_len);
-						it->seqno = it->seqno + need_del_len;	
-					}
-					
-					if(need_del_len == 1 && it->FIN == true)
-					{
-						it->FIN = false;
-						need_del_len -= 1;
-						it->seqno = it->seqno + 1;
-					}
+			//		if(need_del_len > 0)
+			//		{
+			//			it->payload = it->payload.substr(need_del_len);
+			//			it->seqno = it->seqno + need_del_len;	
+			//		}
+			//		
+			//		if(need_del_len == 1 && it->FIN == true)
+			//		{
+			//			it->FIN = false;
+			//			need_del_len -= 1;
+			//			it->seqno = it->seqno + 1;
+			//		}
 	
-					break;
-				}
+			//		break;
+			//	}
 				else 
 					break;
 			}
 			// 重置公共资源
 			CRT_ = 0;
 			RT_.RTO_reset(initial_RTO_ms_);
-			SeqFNum_ -= ackno_u64 - first_seq; 
+			SeqFNum_ -= ackno_u64 - last_ackno_; 
 	
 			// 重置时间
 			RT_.time_reset();
@@ -293,7 +318,6 @@ void TCPSender::receive_simple_mode_(const TCPReceiverMessage& msg)
 		// 太少--无效
 		else 
 		{}
-		
 	}
 	zero_window_probe_ = false;
 }
@@ -324,11 +348,11 @@ void TCPSender::retransmit_simple_mode_(const TransmitFunction& transmit, TCPSen
 
 // ***** zero window probe mode *****
 
-void TCPSender::push_ZWB_mode_(const TransmitFunction& transmit )
+void TCPSender::push_ZWP_mode_(const TransmitFunction& transmit )
 {
 	TCPSenderMessage newTCPSdMsg = make_empty_message();
 
-	// std::cout << "push_one_byte !" << std::endl;
+//	std::cout << "push_ZWP_mode_ !" << std::endl;
 
 	if(window_.size())
 	{
@@ -352,7 +376,9 @@ void TCPSender::push_ZWB_mode_(const TransmitFunction& transmit )
 			it->FIN = false;
 		}
 		else
-			std::cerr << "push_one_byte error!" << std::endl;	
+		{
+		//	std::cerr << "push_one_byte error!" << std::endl;	
+		}
 
 		// window_[0]有效检查
 		if(window_[0].sequence_length() == 0)
@@ -376,7 +402,9 @@ void TCPSender::push_ZWB_mode_(const TransmitFunction& transmit )
 			is_FINed_ = true;
 		}
 		else 
-			std::cerr << "push_one_byte error!" << std::endl;
+		{
+			//std::cerr << "push_one_byte error!" << std::endl;
+		}
 
 		if(newTCPSdMsg.sequence_length() != 1)
 			return ;
@@ -385,17 +413,30 @@ void TCPSender::push_ZWB_mode_(const TransmitFunction& transmit )
 		SeqFNum_ += 1;
 	}
 	is_zero_window_probeing_ = true;
+	
+//	std::cout << std::endl;
+//	std::cout 
+//		<< "msg.SYN = " << newTCPSdMsg.SYN << std::endl
+//		<< "msg.payload = " << newTCPSdMsg.payload << std::endl
+//		<< "msg.FIN = " << newTCPSdMsg.FIN << std::endl 
+//		<< "msg.RST = " << newTCPSdMsg.RST << std::endl;
+
 	transmit(newTCPSdMsg);
 	zero_window_probe_msg_.push_back(newTCPSdMsg);
+	if(newTCPSdMsg.RST)
+		should_RST_ = false;
 	if(zero_window_probe_msg_.size() > 1)
 	{
-		std::cerr << "error! zero_window_probe_msg_ have too many msg!" << std::endl;
+	//	std::cerr << "error! zero_window_probe_msg_ have too many msg!" << std::endl;
 		return ;
 	}
 }
 
-void TCPSender::receive_ZWB_mode_(const TCPReceiverMessage& msg)
+void TCPSender::receive_ZWP_mode_(const TCPReceiverMessage& msg)
 {
+	if(msg.RST)
+		input_.reader().set_error();
+	
 	if(zero_window_probe_)
 	{
 		is_zero_window_probeing_ = false;
@@ -403,10 +444,11 @@ void TCPSender::receive_ZWB_mode_(const TCPReceiverMessage& msg)
 		// 重置时间
 		RT_.time_reset();
 		zero_window_probe_msg_.pop_back();
+		last_ackno_ = (*msg.ackno).unwrap(isn_, last_ackno_);
 	}
 	else 
 	{
-		std::cerr << "zero_window_probe !" << std::endl;
+	//	std::cerr << "zero_window_probe !" << std::endl;
 		RWSize_ = 0;
 		zero_window_probe_ = true;
 		
@@ -419,8 +461,6 @@ void TCPSender::receive_ZWB_mode_(const TCPReceiverMessage& msg)
 		// 如果已经有内容被接收了
 		else if(ackno_u64 > next_seq_ - SeqFNum_)
 		{
-			uint64_t first_seq = window_[0].seqno.unwrap(isn_, last_ackno_);
-	
 			// 将已经接收的msg从窗口移除
 			for(auto it = window_.begin() ; it != window_.end() ; )
 			{
@@ -428,33 +468,33 @@ void TCPSender::receive_ZWB_mode_(const TCPReceiverMessage& msg)
 	
 				if(seqno_u64 + it->sequence_length() <= ackno_u64)
 					it = window_.erase(it);
-				else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
-				{
-					// 鲁棒性优化
-					uint64_t need_del_len = ackno_u64 - seqno_u64;
+			//	else if(seqno_u64 < ackno_u64 && ackno_u64 < seqno_u64 + it->sequence_length())
+			//	{
+			//		// 鲁棒性优化
+			//		uint64_t need_del_len = ackno_u64 - seqno_u64;
 	
-					if(need_del_len > 0)
-					{
-						it->payload = it->payload.substr(need_del_len);
-						it->seqno = it->seqno + need_del_len;	
-					}
-					
-					if(need_del_len == 1 && it->FIN == true)
-					{
-						it->FIN = false;
-						need_del_len -= 1;
-						it->seqno = it->seqno + 1;
-					}
+			//		if(need_del_len > 0)
+			//		{
+			//			it->payload = it->payload.substr(need_del_len);
+			//			it->seqno = it->seqno + need_del_len;	
+			//		}
+			//		
+			//		if(need_del_len == 1 && it->FIN == true)
+			//		{
+			//			it->FIN = false;
+			//			need_del_len -= 1;
+			//			it->seqno = it->seqno + 1;
+			//		}
 	
-					break;
-				}
+			//		break;
+			//	}
 				else 
 					break;
 			}
 			// 重置公共资源
 			CRT_ = 0;
 			RT_.RTO_reset(initial_RTO_ms_);
-			SeqFNum_ -= ackno_u64 - first_seq; 
+			SeqFNum_ -= ackno_u64 - last_ackno_; 
 
 			// 重置时间
 			RT_.time_reset();
@@ -467,17 +507,17 @@ void TCPSender::receive_ZWB_mode_(const TCPReceiverMessage& msg)
 	}
 }
 
-void TCPSender::tick_ZWB_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit)
+void TCPSender::tick_ZWP_mode_(uint64_t ms_since_last_tick, const TransmitFunction& transmit)
 {
 	if(zero_window_probe_msg_.size() == 0)
 		return ;
 	// 时间流逝
 	RT_.time_plus(ms_since_last_tick);
 	if(RT_.is_timeout())
-		retransmit_ZWB_mode_(transmit, zero_window_probe_msg_[0]);
+		retransmit_ZWP_mode_(transmit, zero_window_probe_msg_[0]);
 }
 
-void TCPSender::retransmit_ZWB_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg)
+void TCPSender::retransmit_ZWP_mode_(const TransmitFunction& transmit, TCPSenderMessage TCPSdMsg)
 {
 	transmit(TCPSdMsg);
 	RT_.time_reset();
